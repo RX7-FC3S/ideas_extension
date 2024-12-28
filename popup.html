@@ -42,7 +42,6 @@
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
       }
 
       #li-split_string {
@@ -71,7 +70,10 @@
     <main>
       <span>此插件目前提供下功能:</span>
       <ul>
-        <li><span>1. 为选中文本生成条形码</span></li>
+        <li>
+          <span>1. 为选中字符生成条形码</span>
+          <input type="checkbox" id="checkbox-show_barcode" />
+        </li>
         <li><span>2. 发票箱单自动填写船名和航次</span></li>
         <li><span>3. 单元格内容左对齐</span></li>
         <li id="li-split_string">

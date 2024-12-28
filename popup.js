@@ -3,32 +3,46 @@ const manifest = chrome.runtime.getManifest();
 document.getElementById("title").innerText = manifest.name;
 document.getElementById("version").innerText = `version: ${manifest.version}`;
 
-document.addEventListener("DOMContentLoaded", () => {
+const handleShowBarcodeSettings = () => {
+  const checkboxShowBarcode = document.getElementById("checkbox-show_barcode");
+
+  // 监听单选框的变化事件
+  checkboxShowBarcode.addEventListener("change", (event) => {
+    // 存储当前选择的“显示条形码”的状态
+    chrome.storage.local.set({ showBarcode: event.target.checked }, () => {});
+  });
+
+  // 读取存储的“显示条形码”的状态
+  chrome.storage.local.get(["showBarcode"], (result) => {
+    checkboxShowBarcode.checked = result.showBarcode;
+  });
+};
+
+const handleSplitStringSettings = () => {
   const formSplitString = document.getElementById("form-split_string");
 
   // 监听单选框的变化事件
   formSplitString.addEventListener("change", (event) => {
-    const target = event.target;
-
-    // 检查是否是单选框触发的事件
-    if (target.name === "split-char" && target.type === "radio") {
-      const selectedValue = target.value; // 获取选中的单选框值
-
-      // 保存到 chrome.storage.local (可选)
-      chrome.storage.local.set({ splitCharIndex: selectedValue }, () => {});
+    if (event.target.name === "split-char" && event.target.type === "radio") {
+      // 存储当前选择的分隔符的索引值
+      chrome.storage.local.set({ splitCharIndex: event.target.value }, () => {});
     }
   });
 
-  // 从 chrome.storage.local 读取默认值并设置为选中状态 (可选)
+  // 读取存储的分隔符的索引值
   chrome.storage.local.get(["splitCharIndex"], (result) => {
-    const savedValue = result.splitCharIndex || 0;
-
     const radios = formSplitString.querySelectorAll("input[name='split-char']");
-
     radios.forEach((radio) => {
-      if (radio.value === savedValue) {
+      if (radio.value === result.splitCharIndex) {
         radio.checked = true;
       }
     });
   });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 处理“1. 为选中字符生成条形码”的设置
+  handleShowBarcodeSettings();
+  // 处理“4. 自动分割粘贴文本”的设置
+  handleSplitStringSettings();
 });

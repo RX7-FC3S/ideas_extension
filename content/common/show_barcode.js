@@ -14,12 +14,7 @@ const isIncludeLineFeed = (str) => {
   return false;
 };
 
-function removeBarcode() {
-  const _ = document.querySelector("#barcode");
-  if (_) _.remove();
-}
-
-document.addEventListener("selectionchange", () => {
+const showBarcode = () => {
   // 获取用户选中的内容
   const selection = document.getSelection();
   // 获取用户选中内容中的文本
@@ -44,7 +39,7 @@ document.addEventListener("selectionchange", () => {
 
   JsBarcode("#barcode", text, {
     height: 40,
-    font: "Consolas"
+    font: "Consolas",
   });
   if (element.offsetLeft <= 0) {
     element.style.left = 20 + "px";
@@ -53,4 +48,15 @@ document.addEventListener("selectionchange", () => {
   } else {
     element.style.left = element.offsetLeft - element.offsetWidth / 2.4 + "px";
   }
+};
+
+const removeBarcode = () => {
+  const barcodeDom = document.querySelector("#barcode");
+  if (barcodeDom) barcodeDom.remove();
+};
+
+document.addEventListener("selectionchange", () => {
+  chrome.storage.local.get(["showBarcode"], (result) => {
+    if (result.showBarcode) showBarcode();
+  });
 });
