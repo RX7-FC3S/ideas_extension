@@ -1,0 +1,33 @@
+* {
+    font-family: 'Consolas', 'Microsoft Yahei', monospace !important;
+}
+
+.cell {
+    text-align: left;
+    font-size: 1.15rem !important;
+}
+
+#boxedJigsawOutboundItem {
+    height: 130%;
+}
+
+/* 移位计划管理-手工分配-手工分配弹窗扩大高度 */
+.el-dialog.thorn6-popup.editPutawayManualAllocatePage.EditPageConfig {
+    height: 400px;
+}
+.el-dialog.thorn6-popup.editPutawayManualAllocatePage.EditPageConfig .thorn5-form-main{
+    height: 320px !important;
+}
+
+/* SA装运信息管理-查看弹窗托大高度 */
+.el-dialog.thorn6-popup.viewSaLoadingBillPage {
+    height: 630px;
+}
+.el-dialog.thorn6-popup.viewSaLoadingBillPage .thorn5-form-main {
+    height: 200px !important;
+}
+
+/* 货品装箱作业-录入重量长宽高弹窗减小宽度 */ 
+#boxedJigsawOutboundItem body {
+    background: #000;
+}

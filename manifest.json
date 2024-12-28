@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Doggy From Stardew Valley",
+  "description": "This is a very nice app provides some useful tools.",
+  "version": "0.3.11",
+
+  "icons": {
+    "128": "assets/icon_128.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content/common/style.css"],
+      "js": [
+        "utils/datetime.js",
+        "utils/xlsx.mini.min.js",
+        "utils/JsBarcode.all.min.js",
+        "content/common/show_barcode.js",
+        "content/common/split_string_from_paste.js",
+        "content/dynabook/set_default_values.js"
+      ]
+    }
+  ]
+}

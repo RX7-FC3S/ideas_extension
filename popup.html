@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 240px;
+        padding: 8px;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+      }
+
+      #title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      #github-link-and-version {
+        display: flex;
+        align-items: center;
+      }
+
+      #version {
+        font-size: 12px;
+        margin-left: 4px;
+      }
+
+      ul {
+        width: 100%;
+        padding: 0;
+      }
+
+      li {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      #li-split_string {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #form-split_string {
+        display: flex;
+        flex-direction: column;
+        margin-left: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <span id="title"></span>
+      <div id="github-link-and-version">
+        <a href="https://github.com/RX7-FC3S/ideas_extension.git" target="_blank" rel="noopener noreferrer" style="width: 18px; height: 18px">
+          <img src="./assets/github_mark.png" alt="GitHub" style="width: 18px; height: 18px" />
+        </a>
+        <span id="version"></span>
+      </div>
+    </header>
+    <main>
+      <span>此插件目前提供下功能:</span>
+      <ul>
+        <li><span>1. 为选中文本生成条形码</span></li>
+        <li><span>2. 发票箱单自动填写船名和航次</span></li>
+        <li><span>3. 单元格内容左对齐</span></li>
+        <li id="li-split_string">
+          <span>4. 自动分割粘贴文本</span>
+          <form id="form-split_string">
+            <label>
+              <input type="radio" name="split-char" value="0" checked />
+              <span>关闭</span>
+            </label>
+            <label>
+              <input type="radio" name="split-char" value="1" />
+              <span>空格</span>
+            </label>
+            <label>
+              <input type="radio" name="split-char" value="2" />
+              <span>换行符(回车)</span>
+            </label>
+            <label>
+              <input type="radio" name="split-char" value="3" />
+              <span>制表符(Tab)</span>
+            </label>
+          </form>
+        </li>
+        <li><span>5. 修改某些弹窗的大小</span></li>
+      </ul>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
