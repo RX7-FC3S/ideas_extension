@@ -40,9 +40,26 @@ const handleSplitStringSettings = () => {
   });
 };
 
+const handleAutoFillWorkerSettings = () => {
+  const inputWorkerId = document.getElementById("input-worker_id");
+
+  // 监听单选框的变化事件
+  inputWorkerId.addEventListener("change", (event) => {
+    // 存储当前选择的“显示条形码”的状态
+    chrome.storage.local.set({ worderId: event.target.value }, () => {});
+  });
+
+  // 读取存储的“显示条形码”的状态
+  chrome.storage.local.get(["worderId"], (result) => {
+    inputWorkerId.value = result.worderId ?? null;
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   // 处理“1. 为选中字符生成条形码”的设置
   handleShowBarcodeSettings();
   // 处理“4. 自动分割粘贴文本”的设置
   handleSplitStringSettings();
+  // 处理“5. 自动填写工号”的设置
+  handleAutoFillWorkerSettings();
 });

@@ -1,34 +1,45 @@
+const BLUR_EVENT = new Event("blur", { bubbles: true });
 const INPUT_EVENT = new Event("input", { bubbles: true });
 
 const obCreateInvoiceDialog = new MutationObserver((mutations, observer) => {
   mutations.forEach(async (mutation) => {
     mutation.addedNodes.forEach(async (node) => {
-      const isDialog = node.classList.contains("el-dialog__wrapper") && node.hasChildNodes();
-      const isCreateInvoiceDialog = isDialog && node.firstChild.classList.contains("modifyAddInvoicePackNoPage");
-      if (isCreateInvoiceDialog) {
-        await sleep(1000); // 等待弹窗加载完成
+      const vesselInput = document.getElementById("omsOutboundOrder.invoicePackNo.vesselName");
+      const voyageInput = document.getElementById("omsOutboundOrder.invoicePackNo.voyage");
 
-        const vesselInput = document.getElementById("omsOutboundOrder.invoicePackNo.vesselName");
-        const voyageInput = document.getElementById("omsOutboundOrder.invoicePackNo.voyage");
-        const requestedShipDate = document.getElementById("invoicePackNo.requestedShipDate");
+      if (vesselInput && vesselInput.value === "") {
+        vesselInput.value = "THE FIRST AVAILABLE AIRCRAFT";
+        vesselInput.dispatchEvent(INPUT_EVENT);
+      }
 
-        if (vesselInput && vesselInput.value === "") {
-          vesselInput.value = "THE FIRST AVAILABLE AIRCRAFT";
-          vesselInput.dispatchEvent(INPUT_EVENT);
-        }
-
-        if (voyageInput && voyageInput.value === "") {
-          voyageInput.value = "-";
-          voyageInput.dispatchEvent(INPUT_EVENT);
-        }
-
-        // if (requestedShipDate) {
-        //   requestedShipDate.value = getFutureDate(1, "yyyy/MM/dd");
-        //   requestedShipDate.dispatchEvent(ENTER_EVENT);
-        // }
+      if (voyageInput && voyageInput.value === "") {
+        voyageInput.value = "-";
+        voyageInput.dispatchEvent(INPUT_EVENT);
       }
     });
   });
 });
 
 obCreateInvoiceDialog.observe(document.body, { childList: true });
+
+const obWorkerIdInput = new MutationObserver((mutations, observer) => {
+  mutations.forEach(async (mutation) => {
+    mutation.addedNodes.forEach(async (node) => {
+      try {
+        const workerIdInput = node?.querySelector("#workerId");
+        if (workerIdInput && workerIdInput.value === "") {
+          chrome.storage.local.get(["worderId"], (result) => {
+            workerIdInput.value = result.worderId || null;
+            workerIdInput.dispatchEvent(INPUT_EVENT);
+            workerIdInput.dispatchEvent(BLUR_EVENT);
+          });
+        }
+      } catch (error) {
+        // ignore
+      }
+    });
+  });
+});
+
+obCreateInvoiceDialog.observe(document.body, { childList: true });
+obWorkerIdInput.observe(document.body, { childList: true, subtree: true });

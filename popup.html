@@ -54,6 +54,21 @@
         flex-direction: column;
         margin-left: 8px;
       }
+
+      #li-worker {
+        max-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 10px;
+      }
+      #li-worker span {
+        white-space: nowrap;
+      }
+      #input-worker_id {
+        flex-grow: 1;
+        width: 100px;
+        height: 18px;
+      }
     </style>
   </head>
 
@@ -61,7 +76,12 @@
     <header>
       <span id="title"></span>
       <div id="github-link-and-version">
-        <a href="https://github.com/RX7-FC3S/ideas_extension.git" target="_blank" rel="noopener noreferrer" style="width: 18px; height: 18px">
+        <a
+          href="https://github.com/RX7-FC3S/ideas_extension.git"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="width: 18px; height: 18px"
+        >
           <img src="./assets/github_mark.png" alt="GitHub" style="width: 18px; height: 18px" />
         </a>
         <span id="version"></span>
@@ -98,6 +118,10 @@
           </form>
         </li>
         <li><span>5. 修改某些弹窗的大小</span></li>
+        <li id="li-worker">
+          <span>6. 自动填写作业人员：</span>
+          <input type="text" id="input-worker_id" />
+        </li>
       </ul>
     </main>
     <script src="popup.js"></script>
