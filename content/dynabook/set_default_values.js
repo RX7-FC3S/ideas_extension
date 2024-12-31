@@ -27,12 +27,14 @@ const obWorkerIdInput = new MutationObserver((mutations, observer) => {
     mutation.addedNodes.forEach(async (node) => {
       try {
         const workerIdInput = node?.querySelector("#workerId");
-        if (workerIdInput && workerIdInput.value === "") {
-          chrome.storage.local.get(["worderId"], (result) => {
-            workerIdInput.value = result.worderId || null;
-            workerIdInput.dispatchEvent(INPUT_EVENT);
-            workerIdInput.dispatchEvent(BLUR_EVENT);
-          });
+        if (workerIdInput) {
+          setTimeout(() => {
+            chrome.storage.local.get(["worderId"], (result) => {
+              workerIdInput.value = result.worderId || null;
+              workerIdInput.dispatchEvent(INPUT_EVENT);
+              workerIdInput.dispatchEvent(BLUR_EVENT);
+            });
+          }, 500);
         }
       } catch (error) {
         // ignore
