@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Doggy From Stardew Valley",
   "description": "This is a very nice app provides some useful tools.",
-  "version": "0.3.13",
+  "version": "0.3.14",
 
   "icons": {
     "128": "assets/icon_128.png"

@@ -55,11 +55,42 @@ const handleAutoFillWorkerSettings = () => {
   });
 };
 
+const handleAutoFillPkgUnitSpecSettings = () => {
+  const inputLength = document.getElementById("input-length");
+  const inputWidth = document.getElementById("input-width");
+  const inputHeight = document.getElementById("input-height");
+  const inputInnerQty = document.getElementById("input-inner_qty");
+
+  // 监听输入框的变化事件
+  inputLength.addEventListener("change", (event) => {
+    chrome.storage.local.set({ pkgLength: event.target.value }, () => {});
+  });
+  inputWidth.addEventListener("change", (event) => {
+    chrome.storage.local.set({ pkgWidth: event.target.value }, () => {});
+  });
+  inputHeight.addEventListener("change", (event) => {
+    chrome.storage.local.set({ pkgHeight: event.target.value }, () => {});
+  });
+  inputInnerQty.addEventListener("change", (event) => {
+    chrome.storage.local.set({ pkgInnerQty: event.target.value }, () => {});
+  });
+
+  // 读取存储的包装规格的长度、宽度、高度
+  chrome.storage.local.get(["pkgLength", "pkgWidth", "pkgHeight", "pkgInnerQty"], (result) => {
+    inputLength.value = result.pkgLength ?? null;
+    inputWidth.value = result.pkgWidth ?? null;
+    inputHeight.value = result.pkgHeight ?? null;
+    inputInnerQty.value = result.pkgInnerQty ?? null;
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   // 处理“1. 为选中字符生成条形码”的设置
   handleShowBarcodeSettings();
   // 处理“4. 自动分割粘贴文本”的设置
   handleSplitStringSettings();
-  // 处理“5. 自动填写工号”的设置
+  // 处理“6. 自动填写工号”的设置
   handleAutoFillWorkerSettings();
+  // 处理“7. 自动填写包装规格”的设置
+  handleAutoFillPkgUnitSpecSettings();
 });
